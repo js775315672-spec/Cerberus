@@ -13,7 +13,29 @@ import re
 import sys
 from pathlib import Path
 
-from cerberus.gate import load_document
+
+# FENRIR does not import or trust CERBERUS internals.
+MAX_BYTES = 1_000_000
+
+
+def _reject_duplicate_keys(pairs):
+    obj = {}
+    for key, value in pairs:
+        if key in obj:
+            raise ValueError("duplicate JSON key: " + key)
+        obj[key] = value
+    return obj
+
+
+def load_document(path):
+    path = Path(path)
+    if path.stat().st_size > MAX_BYTES:
+        raise ValueError("O report exceeds 1 MB")
+    document = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=_reject_duplicate_keys)
+    if not isinstance(document, dict):
+        raise ValueError("O report root must be an object")
+    return document
+
 
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 SHA40 = re.compile(r"^[0-9a-f]{40}$")
