@@ -1,0 +1,10 @@
+{
+  "cycle_id": "DEMO-NOT-REAL-001",
+  "candidate_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "source_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "producer": {
+    "agent_id": "OUROBOROS",
+    "execution_id": "demo-o-001",
+    "evidence_url": "https://github.com/example/O/actions/runs/1"
+  }
+}
