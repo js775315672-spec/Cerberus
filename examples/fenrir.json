@@ -1,0 +1,19 @@
+{
+  "cycle_id": "DEMO-NOT-REAL-001",
+  "candidate_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "producer": {
+    "agent_id": "FENRIR",
+    "execution_id": "demo-f-002",
+    "evidence_url": "https://github.com/example/F/issues/1"
+  },
+  "findings": [
+    {
+      "id": "F-DEMO-01",
+      "severity": "P1",
+      "classification": "confirmed",
+      "summary": "Demonstration of a blocking finding, not a real observation.",
+      "reproduction": "Use a separate holdout to reproduce (placeholder only)",
+      "evidence_url": "https://github.com/example/F/issues/1"
+    }
+  ]
+}
