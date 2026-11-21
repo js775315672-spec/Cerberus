@@ -34,3 +34,12 @@ Cerberus는 Ouroboros의 마지막 관문에 종속되는 도구가 아니다. �
 `1c77af88c66ffa1a3abbdb7176d328d9d3803687138c43cb24cd749b2e4d7969`
 
 이번 인계는 Draft PR의 단일 워크플로에서 Fenrir 발행 작업과 Cerberus 수신 작업을 분리해 검증했습니다. 운영용 신뢰 정책의 보호와 후보의 독립 재현은 후속 과제입니다. [전체 실행 기록](https://github.com/js775315672-spec/Cerberus/actions/runs/44875233515) · [저장소 간 인계 원장](https://github.com/js775315672-spec/Harness-Ouroboros-MCP/issues/347)
+
+### 독립 자율진화 상세 개발 명세
+
+- [독립 자율개선 루프 상세 계약 v2.0](docs/evolution/standalone-autonomy-spec-v2.md) — 내부 12개 모듈, 상태 기계, 증거 계약, 구현 단계
+- [cerberus 전용 구현 계약](docs/evolution/cerberus-implementation-spec-v1.md) — 독자 목표, 평가 및 자체 개선 방법
+- [23개 수락 테스트 계획](docs/evolution/acceptance-test-plan-v1.md) — 완료/차단 판정 조건
+- [예약 자동개발 지속 프롬프트](docs/evolution/AUTOMATION_CONTINUITY_PROMPT.md) — 매 회차 이전 checkpoint 복구·중복 방지·한 가지 실제 개선
+
+**현재 단계:** 개발 상세 설계 및 읽기 전용 검사 CI. 실제 무인 자기개선 루프와 숨겨진 평가 성과는 미검증이다.
