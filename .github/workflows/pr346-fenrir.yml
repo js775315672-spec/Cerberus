@@ -3,10 +3,14 @@ on:
   push:
     branches: ['oril/pr346-fenrir-source-review']
     paths: ['.github/workflows/pr346-fenrir.yml']
+  pull_request:
+    branches: ['feat/independent-gate-v0-1']
+    paths: ['.github/workflows/pr346-fenrir.yml']
   workflow_dispatch:
 permissions: {}
 jobs:
   fenrir:
+    if: github.event_name != 'pull_request' || (github.event.pull_request.number == 3 && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 8
     permissions:
@@ -73,5 +77,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -eu
-          gh attestation verify FENRIR_REPORT.json --repo "$GITHUB_REPOSITORY" --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/pr346-fenrir.yml" --source-ref 'refs/heads/oril/pr346-fenrir-source-review' --source-digest "$GITHUB_SHA" --deny-self-hosted-runners
+          gh attestation verify FENRIR_REPORT.json --repo "$GITHUB_REPOSITORY" --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/pr346-fenrir.yml" --source-ref "$GITHUB_REF" --source-digest "$GITHUB_SHA" --deny-self-hosted-runners
           jq -e --arg run "$GITHUB_RUN_ID" --arg attempt "$GITHUB_RUN_ATTEMPT" '.cycle_id=="ORIL-OFC-PR346-001" and .candidate_sha256=="1c77af88c66ffa1a3abbdb7176d328d9d3803687138c43cb24cd749b2e4d7969" and .source_commit=="083eb00e9efb91c8a951a551a91fcccfb6d2efcb" and .run_id==$run and .attempt==$attempt' FENRIR_REPORT.json
+          cp FENRIR_REPORT.json altered.json
+          printf ' ' >> altered.json
+          if gh attestation verify altered.json --repo "$GITHUB_REPOSITORY"; then exit 1; fi
+          if gh attestation verify FENRIR_REPORT.json --repo "$GITHUB_REPOSITORY" --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/untrusted.yml"; then exit 1; fi
+          if jq -e '.candidate_sha256=="0000000000000000000000000000000000000000000000000000000000000000"' FENRIR_REPORT.json; then exit 1; fi
