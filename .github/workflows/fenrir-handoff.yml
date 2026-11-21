@@ -1,0 +1,73 @@
+name: Fenrir separate-worker handoff
+
+on:
+  pull_request:
+    paths:
+      - 'fenrir/**'
+      - 'cerberus/**'
+      - 'tests/**'
+      - 'examples/**'
+      - '.github/workflows/fenrir-handoff.yml'
+  workflow_dispatch:
+    # Manual dispatch of this workflow is available after it is on the default branch.
+
+permissions:
+  contents: read
+
+jobs:
+  fenrir-worker:
+    name: Fenrir standalone review (synthetic smoke input)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Produce stand-alone Fenrir report
+        env:
+          REVIEW_EVIDENCE: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          REVIEW_EXECUTION: fenrir-${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          python -m fenrir.reviewer \
+            --ouroboros examples/ouroboros.json \
+            --execution-id "$REVIEW_EXECUTION" \
+            --evidence-url "$REVIEW_EVIDENCE" \
+            --output fenrir-report.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fenrir-synthetic-report
+          path: fenrir-report.json
+          retention-days: 7
+
+  cerberus-consumer:
+    name: Cerberus separate runner consumes Fenrir artifact
+    needs: fenrir-worker
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: fenrir-synthetic-report
+      - name: Assert fail-closed non-approval (exit code 2)
+        shell: bash
+        run: |
+          set +e
+          python -m cerberus.gate examples/ouroboros.json fenrir-report.json --output cerberus-result.json
+          code=$?
+          set -e
+          test "$code" -eq 2
+          python -c 'import json; r=json.load(open("cerberus-result.json")); assert r["status"]=="INCONCLUSIVE" and not r["eligible_for_merge"]'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cerberus-synthetic-result
+          path: cerberus-result.json
+          retention-days: 7
