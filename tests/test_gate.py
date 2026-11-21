@@ -72,6 +72,14 @@ class GateTests(unittest.TestCase):
         self.f["findings"][0]["classification"] = "proof"
         self.assertEqual(evaluate(self.o, self.f)["status"], "BLOCKED")
 
+    def test_malformed_severity_type_blocks_instead_of_crashing(self):
+        self.f["findings"][0]["severity"] = ["P0"]
+        self.assertEqual(evaluate(self.o, self.f)["status"], "BLOCKED")
+
+    def test_malformed_classification_type_blocks(self):
+        self.f["findings"][0]["classification"] = {"x": 1}
+        self.assertEqual(evaluate(self.o, self.f)["status"], "BLOCKED")
+
     def test_non_object_blocks(self):
         self.assertEqual(evaluate([], self.f)["status"], "BLOCKED")
 
