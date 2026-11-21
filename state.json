@@ -1,1 +1,1 @@
-{"agent": "cerberus", "checkpoint": null, "cycle": "66fc66c106b2470a9b6d1a04e77c985b", "expires": 1795263422.604488, "generation": 17, "owner": "44901841245/1/9", "pending": null, "phase": "open", "results": {}, "schema": 1, "source": "bdc1589516f0348e23efe0a61d3cac163ce5be29"}
+{"agent": "cerberus", "checkpoint": null, "cycle": "66fc66c106b2470a9b6d1a04e77c985b", "expires": 1795263422.604488, "generation": 17, "owner": "44901841245/1/9", "pending": "qwen-public-trial", "phase": "open", "results": {}, "schema": 1, "source": "bdc1589516f0348e23efe0a61d3cac163ce5be29"}
