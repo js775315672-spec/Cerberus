@@ -19,3 +19,18 @@ Cerberus는 Ouroboros가 만든 후보와 Fenrir의 검토 보고서를 받아, 
 `1c77af88c66ffa1a3abbdb7176d328d9d3803687138c43cb24cd749b2e4d7969`
 
 이번 인계는 Draft PR의 단일 워크플로에서 Fenrir 발행 작업과 Cerberus 수신 작업을 분리해 검증했습니다. 운영용 신뢰 정책의 보호와 후보의 독립 재현은 후속 과제입니다. [전체 실행 기록](https://github.com/js775315672-spec/Cerberus/actions/runs/44875233515) · [저장소 간 인계 원장](https://github.com/js775315672-spec/Harness-Ouroboros-MCP/issues/347)
+
+<!-- OFC-DASHBOARD-BEGIN -->
+## OFC independent agent dashboard (P0)
+
+| Metric | Evidence-based status |
+| --- | --- |
+| Real model execution | UNKNOWN |
+| Independent improvement | UNKNOWN |
+| Improvement throughput | NOT_MEASURED |
+| Comparable speed trend | NOT_MEASURED |
+| Generalization | NOT_VERIFIED |
+| Most recent blocker | P1 real model run + protected independent evaluation not yet connected |
+
+Registry and contract unit tests are **not** model improvements.
+<!-- OFC-DASHBOARD-END -->
