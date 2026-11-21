@@ -1,0 +1,39 @@
+{
+  "schema": "independent-agent-state-v1",
+  "agent_id": "cerberus",
+  "observed_at": "2026-11-21",
+  "source_branch": "main",
+  "operation_mode": "research_draft_only",
+  "evolution_status": "NOT_STARTED",
+  "last_verified_independent_gain": null,
+  "last_verified_cycle": null,
+  "current_assessment": "main README는 후보 인계의 출처 검증을 설명하지만 ORIL-OFC-PR346-001 최종 후보 판정은 INCONCLUSIVE다.",
+  "next_experiment": "보호된 독립 재현과 판정기 자체의 변이 테스트를 분리해 계획",
+  "metrics": {
+    "improvement_on_heldout": null,
+    "matched_end_to_end_seconds": null,
+    "regression_rate": null,
+    "resource_cost": null
+  },
+  "missing_measurements": [
+    "개체별 독립 실행 기준선",
+    "동일 조건 반복 측정",
+    "보호된 신규 평가",
+    "가설별 근거·아티팩트 해시"
+  ],
+  "evidence_urls": [
+    "https://github.com/js775315672-spec/Cerberus/blob/main/README.md",
+    "https://github.com/js775315672-spec/Cerberus/issues/2"
+  ],
+  "imported_external_claims": [],
+  "status_vocabulary": [
+    "NOT_STARTED",
+    "PROPOSED",
+    "RUNNING",
+    "BLOCKED",
+    "INCONCLUSIVE",
+    "FAILED",
+    "VERIFIED",
+    "REJECTED"
+  ]
+}
