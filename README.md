@@ -1,8 +1,29 @@
 # Cerberus
 
-Cerberus는 Ouroboros가 만든 후보와 Fenrir의 검토 보고서를 받아, 출처를 확인하고 후보의 최종 검증 결과를 기록하는 프로젝트입니다.
+## 독립 운영 계약 v3.1
 
-## 검증 대시보드
+Cerberus는 자체 검증기를 개선한다. 정상 자료와 변조 자료를 분리해 거짓 통과율과 거짓 차단율, 재현 비용을 측정한다.
+
+[운영 명세와 원장 사용법](docs/ofc-v3.1.md)
+
+<!-- OFC-DASHBOARD-BEGIN -->
+## OFC independent agent dashboard (P0)
+
+| Metric | Evidence-based status |
+| --- | --- |
+| Real model execution | UNKNOWN |
+| Independent improvement | UNKNOWN |
+| Improvement throughput | NOT_MEASURED |
+| Comparable speed trend | NOT_MEASURED |
+| Generalization | NOT_VERIFIED |
+| Most recent blocker | P1 real model run + protected independent evaluation not yet connected |
+
+Registry and contract unit tests are **not** model improvements.
+<!-- OFC-DASHBOARD-END -->
+
+## HISTORICAL · O→F→C 인계 실험
+
+당시의 필수 입력 계약은 SUPERSEDED 상태다. 아래는 원래 실험 기록이다.
 
 **보고서 인계 성공 · 후보 최종 판정 `INCONCLUSIVE`**
 
