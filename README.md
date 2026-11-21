@@ -2,6 +2,21 @@
 
 Cerberus는 Ouroboros가 만든 후보와 Fenrir의 검토 보고서를 받아, 출처를 확인하고 후보의 최종 검증 결과를 기록하는 프로젝트입니다.
 
+## Cerberus 독립 성장 연구
+
+Cerberus는 Ouroboros의 마지막 관문에 종속되는 도구가 아니다. 독자적으로 증거 조작 시나리오, 검사기 결함, 재현 불가능한 실험을 연구하고 검증 정확도 자체를 높이는 자율개선형 개체를 목표로 한다. 다른 개체의 요청 없이도 자체 검증기 품질 실험을 시작할 수 있는 구조를 설계한다.
+
+| 항목 | 현재 연구 기준 (2026-11-21) |
+| --- | --- |
+| 상태 | 연구 설계 작성 (Draft, 자율실행 미시작) |
+| 고유 성장 목표 | 거짓 통과 감소·평가 정확도·증거 무결성 |
+| 검증된 자기 개선 | 미입증 |
+| 다음 실험 | 보호된 재현 및 검사기 변이 테스트 계획 |
+
+[독립 정체성](docs/evolution/identity.md) · [기계 판독 상태](docs/evolution/independent-state.json) · [README 기억 실험 설계](docs/evolution/readme-memory-study.md) · [독립 기억 점검 스크립트](scripts/evolution_context.py)
+
+아래의 기존 `ORIL-OFC-PR346-001` 인계 현황은 *다른 후보에 대한 검증 작업*이며, Cerberus 자신의 능력 개선이 검증됐다는 뜻이 아니다. 로컬 자기 점검: `python scripts/evolution_context.py check|context`.
+
 ## 검증 대시보드
 
 **보고서 인계 성공 · 후보 최종 판정 `INCONCLUSIVE`**
