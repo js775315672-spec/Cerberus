@@ -4,6 +4,10 @@
 
 CERBERUS is a separate project from [Harness-Ouroboros-MCP](https://github.com/js775315672-spec/Harness-Ouroboros-MCP) and the FENRIR red-team agent. OUROBOROS develops; FENRIR independently criticizes; CERBERUS turns verified criticisms into reproducible checks and develops its own verifier.
 
+## Separate FENRIR reviewer included
+
+This repository now also contains `fenrir/`, a **separately executable rule-based reviewer**, and `.github/workflows/fenrir-handoff.yml` to test the O → F → C artifact handoff with two distinct jobs. That does **not** certify an independent LLM agent or trusted execution identity. [Read FENRIR's boundaries](docs/FENRIR.md).
+
 ## Current capabilities
 
 - Offline, deterministic contract checks for O -> F -> C JSON handoff
