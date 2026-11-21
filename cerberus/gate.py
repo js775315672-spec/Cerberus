@@ -98,7 +98,8 @@ def evaluate(ouroboros, fenrir):
             seen.add(identity)
         severity = finding.get("severity")
         classification = finding.get("classification")
-        if severity not in SEVERITIES or classification not in CLASSES:
+        if (not isinstance(severity, str) or severity not in SEVERITIES
+                or not isinstance(classification, str) or classification not in CLASSES):
             reasons.append("finding " + str(index) + " has invalid severity/classification")
             continue
         if not _valid_text(finding.get("summary"), 1000):
@@ -108,7 +109,7 @@ def evaluate(ouroboros, fenrir):
         evidence = finding.get("evidence_url")
         if not _valid_text(evidence, 2048) or not evidence.startswith("https://"):
             reasons.append("finding " + str(index) + " missing HTTPS evidence URL")
-        if severity in {"P0", "P1"} and classification == "confirmed":
+        if isinstance(severity, str) and severity in {"P0", "P1"} and classification == "confirmed":
             blocking_findings.append(identity)
 
     if blocking_findings:
