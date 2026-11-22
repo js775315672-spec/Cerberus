@@ -178,6 +178,18 @@ with patch('cycle_registry.time.time', return_value=100):
         with self.assertRaises(Blocked):
             self.call("acquire", "next")
 
+    def test_dev_forged_merge_parent_rejected(self):
+        pr = self.merge_fixture()
+        forged = dict(pr, merge_commit_sha=self.source)
+        before = self.call("inspect")
+        with patch("cycle_registry.github_pr", return_value=forged):
+            with self.assertRaises(Blocked):
+                self.call("merge_reconcile", value="merge-42")
+        after = self.call("inspect")
+        self.assertEqual(after["pending"], before["pending"])
+        self.assertEqual(after["results"], before["results"])
+
+
 
 if __name__ == "__main__":
     unittest.main()
