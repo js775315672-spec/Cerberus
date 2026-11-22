@@ -55,3 +55,10 @@ Cerberus는 Ouroboros가 만든 후보와 Fenrir의 검토 보고서를 받아, 
 - DEV-only: `agent/github_artifact_evidence.py` fetches GitHub run and artifact metadata using a separately provided read-only token; verifies repository, exact head SHA, successful completed run, artifact binding, expiry and SHA-256 of downloaded ZIP (50 MB limit).
 - Windows/Linux test: `tests/test_github_artifact_evidence.py` (mock transport). The workflow executes both planner and provenance tests. A mocked PASS is **not** a live authenticated artifact verification.
 - **BLOCKED** until the newest CI for this exact README head passes on both OSes, a real artifact is available and independently authenticated, lease and zero-cost provider are verified. No real Qwen calls, independent improvements, or operational cycles are claimed.
+
+
+### OFC P0 live audit snapshot (2026-11-23)
+- Inspected pre-documentation DEV head: `04225b340cb6c566096c311a9791d8c695bfc3d3`; P0 Actions run: https://github.com/js775315672-spec/Cerberus/actions/runs/45048546786.
+- Observed at audit: Windows/Linux isolated regression PASS; CAS running; Linux artifact 14765175527 SHA256 cc678ec3fd51ff44d9e93867818ab3048114fb4dadf9dafd9a5c903b0afbc561; Windows artifact 14764901709 SHA256 1da39d74385939336eada0def2f7768b0be2708487bd07ede61ac7fca7850777; both ZIP integrity PASS.
+- Final `verify-live-artifacts` job: NOT_PASSED / not yet executed. P0 overall BLOCKED; no new Qwen invocation, independent improvement, or verified operational cycle.
+- Snapshot only: this README commit changes the DEV head and requires fresh head-bound CI; do not promote previous-run evidence as current-head PASS. main, OPS, PROTECTED and automations unchanged.
