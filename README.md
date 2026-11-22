@@ -39,3 +39,14 @@ Cerberus는 Ouroboros가 만든 후보와 Fenrir의 검토 보고서를 받아, 
 - Status: planner committed to this independent Draft PR; new 120-cycle Windows/Linux CI must pass before promotion. The code is a **planner/receipt ledger**, not an external model executor or trusted evaluator. It does not automatically enforce third-party spending or cryptographically authenticate evaluator evidence.
 - C gate: real approved free Qwen calls NOT_RUN; model hash, candidate SHA, evaluator SHA, actual run ID, artifact digest and independent holdout evaluation remain UNKNOWN/NOT_RUN. No OPS lease acquired; no main/protected/registry writes.
 - Next single action: verify 120-cycle CI and harden evidence authentication and real-cost metering before any Qwen execution.
+
+
+## OFC A-gate 120-cycle CI evidence — 2026-11-23
+
+- Verification target before this documentation commit: `8284e0e1254f55ac2fca01148c1cffe11f482e26` (Draft PR, DEV-only).
+- Workflow: `OFC DEV 120-cycle planner safety`; run: https://github.com/js775315672-spec/Cerberus/actions/runs/45047638567.
+- Linux: **PASS**; Windows: **PASS** at inspection time. Do not treat queued as passed or failed.
+- A-gate: **PASS for pinned code head; rerun required for any subsequent code changes**.
+- Evidence limitations: test suite checks deterministic planner bounds, pending replay block, independent-agent ledger separation, fail-closed receipts and budget counters. It does not prove real Qwen inference, authenticated evaluation artifacts, real spend enforcement, or intelligence gains.
+- New README commit changes PR head: verify the new head separately before final gate promotion.
+- OPS registry / PROTECTED / main: unchanged. No automatic merge.
