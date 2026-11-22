@@ -190,6 +190,18 @@ with patch('cycle_registry.time.time', return_value=100):
         self.assertEqual(after["results"], before["results"])
 
 
+    def test_dev_forged_pr_repository_rejected(self):
+        pr = self.merge_fixture()
+        fake = dict(pr, base=dict(pr["base"], repo=dict(full_name="attacker/other")))
+        before = self.call("inspect")
+        with patch("cycle_registry.github_pr", return_value=fake):
+            with self.assertRaises(Blocked):
+                self.call("merge_reconcile", value="merge-42")
+        after = self.call("inspect")
+        self.assertEqual(after["pending"], before["pending"])
+        self.assertEqual(after["results"], before["results"])
+
+
 
 if __name__ == "__main__":
     unittest.main()
