@@ -1,0 +1,46 @@
+name: Ponytail D2 independent Cerberus public replay
+on:
+  push:
+    branches: [dev/ponytail-d2-cerberus-20261127]
+    paths: ['agent/d2_public_audit.py', 'agent/test_d2_public_audit.py', '.github/workflows/ponytail-d2-cerberus.yml']
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Independently pin source run and archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api repos/js775315672-spec/Harness-Ouroboros-MCP/actions/runs/45913964999 | jq -e '.conclusion=="success" and .head_sha=="5c5b4a93be07e7dc39f355c1f6bbf2e978dafd50"'
+          gh api repos/js775315672-spec/Harness-Ouroboros-MCP/actions/artifacts/15161258255 | jq -e '.digest=="sha256:10c9873b297f795df130de2f30b6618b5ed081c5f073193aa615d2bf659e0297" and .expired==false and .workflow_run.id==45913964999'
+          curl --fail --location --silent --show-error 'https://raw.githubusercontent.com/js775315672-spec/Fenrir-Agent/bd93c6e158e358879c562036f17e2e4ce733a5d4/handoff/d2-raw-1.zip' -o d2-raw.zip
+          echo '10c9873b297f795df130de2f30b6618b5ed081c5f073193aa615d2bf659e0297  d2-raw.zip' | sha256sum -c -
+      - name: Independent regrade and negative controls
+        run: python3 -B -m unittest agent.test_d2_public_audit -v
+      - name: Install pinned CPU dependencies
+        run: |
+          python3 -m pip install --disable-pip-version-check --index-url https://download.pytorch.org/whl/cpu 'torch==2.5.1+cpu'
+          python3 -m pip install --disable-pip-version-check 'transformers==4.46.3' 'huggingface_hub==0.26.5' 'safetensors==0.4.5'
+      - name: Actual independent 30-case model replay
+        run: python3 -B -m agent.d2_public_audit
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: out/CERBERUS_PUBLIC_REPLAY.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cerberus-d2-public-replay
+          path: out/
+          if-no-files-found: warn
+          retention-days: 14
